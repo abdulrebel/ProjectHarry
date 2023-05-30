@@ -19,7 +19,63 @@ Installation
 Database Setup
 
     Create a SQL Server database with the name "MVCDapperDb".
-    Execute the SQL script provided in the "Database Scripts" folder to create the necessary table and stored procedures.
+    //Create table 
+    CREATE TABLE [dbo].[Products] (
+    [Id]          INT             IDENTITY (1, 1) NOT NULL,
+    [ProductName] VARCHAR (255)   NULL,
+    [Price]       DECIMAL (18, 2) NULL,
+    [Description] VARCHAR (255)   NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+    );  //Stored Procedure
+    
+     1. CREATE PROCEDURE AddProduct
+    @ProductName VARCHAR(255),
+    @Description VARCHAR(255),
+    @Price DECIMAL(18, 2)
+    AS
+    BEGIN
+        INSERT INTO Products (ProductName, Description, Price)
+        VALUES (@ProductName, @Description, @Price)
+    END
+
+    2.CREATE PROCEDURE DeleteProduct
+    @Id INT
+    AS
+    BEGIN
+        DELETE FROM Products
+        WHERE Id = @Id;
+    END
+
+    3.CREATE PROCEDURE GetAllProducts
+    AS
+    BEGIN
+        SELECT * FROM Products;
+    END
+
+    4.CREATE PROCEDURE dbo.GetProductById
+    @Id INT
+    AS
+    BEGIN
+        SELECT *
+        FROM Products
+        WHERE Id = @Id
+    END
+    
+    5.CREATE PROCEDURE UpdateProduct
+    @Id INT,
+    @ProductName VARCHAR(255),
+    @Description VARCHAR(255),
+	@Price DECIMAL(18, 2)
+    AS
+    BEGIN
+        UPDATE Products
+        SET ProductName = @ProductName,
+            Description = @Description,
+            Price = @Price
+        WHERE Id = @Id
+    END
+
+
 
 Usage
 
